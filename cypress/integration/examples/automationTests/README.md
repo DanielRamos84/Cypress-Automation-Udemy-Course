@@ -1,6 +1,19 @@
-# Testing approach :thinking:
-- We'll go through each page section asserting the following:
-    - Menu titles and sub menus match what's rendered in DOM
-    - Expand each menu title click on each sub menu and verify correct url is displayed
-    - Page header has title ngx-admin on each page
-    - Page footer has Created with and social media buttons on each page 
+# Approach to testing the application :thinking:
+- User story: As a user I can navigate and interact with each menu and submenu available in the application
+- Test Name: automationTest001
+- Description:
+    - Navigate to http://localhost:4200/
+    - Expand each menu option
+    - Click on each submenu
+    - Verify correct url
+    - Verify all title are correct for each menu / submenu according to the information from html file
+    - Verify each page has both Created by and social media information at the footer section
+- Precondition: Deploy nxg-admin app https://github.com/akveo/ngx-admin
+- Test Data: n/a
+- Priority: High
+- Expected Results: 
+    - All url's are correct
+    - All title match the text found in the html
+    - Created by and Social media feed icons located on the footer section for each individual page
+- Environment Info: Windows 10 Pro
+- Tester Name: DRamos
