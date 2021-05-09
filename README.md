@@ -14,10 +14,16 @@ Application should be accessible via localhost :clap::thumbsup::clap:
 
 ## Install and run Cypress Test Runner:heavy_check_mark:
 1. We'll install using npm, cd into your project directory from IDE terminal
-2. From IDE terminal run `npm install cypress --save-dev` This creates the Cypress Folder Structure containing the following:
+2. From IDE terminal run `npm install cypress --save-dev` 
+3. Finally open Cypress test runner `npx cypress open`
+This creates the Cypress Folder Structure containing the following:
 - _fixtures folder:_ Stores test data mostly in .json format
 - _integration folder:_ Stores our test files (spec files), by default cypress will install several spec files under `integration/examples folder`.
-3. Finally open Cypress test runner `npx cypress open`
+- _plugins folder_: Extends Cypress functionality, custom plugins
+-_support folder_: Stores index.js and commands.js
+    - index.js: Very first file Cypress looks at, any code in here is executed before anything else.  Import additional libraries and event listeners.
+    - commands.js: Commonly used functions we create to be used throughout our test and override existing Cypress functions.
+
 
 ## A little bit of housekeeping before setting up our own tests :heavy_check_mark:
 - Open cypress.json file and add the baseUrl so we don't have to specify this on each of our tests
@@ -32,9 +38,24 @@ Application should be accessible via localhost :clap::thumbsup::clap:
 }
 ```
 
+## Turn on IntelliSense for code suggestions and autocompletion :heavy_check_mark:
+- You can set this on each individual spec file by using triple slash directive which is specified on your first line of code `/// <reference types="Cypress" />`
+- Better approach set this up globally which trickles down to all your spec files, you no longer need to use the triple slash directive per file.  To do this create a jsconfig.json file in the root of the project folder.  Add the following code
+```
+{
+    "include": [
+        "./node_modules/cypress",
+        "cypress/**/*.js"
+    ]
+}
+```
+<img src= "images\2021-05-09_12-56-09.png">
+
+## For my own personal tests I will create a new folder named automationTests under cypress/integration folder :heavy_check_mark:
+
 ## Click to view my first :point_right:[firsttest.spec.js](https://github.com/DanielRamos84/Cypress-Automation-Udemy-Course/tree/master/cypress/integration/New%20folder):point_left:
 
-topics covered: Basic web element interaction.
+Topics covered: Basic web element interaction.
 - Completing and submitting forms
 - Radio button selection and assertion
 - Date picker and assertion test
@@ -42,3 +63,5 @@ topics covered: Basic web element interaction.
 
 ## Click to view my :point_right:[testWithPageObjects.js](https://github.com/DanielRamos84/Cypress-Automation-Udemy-Course/tree/master/cypress/integration):point_left:
 - We'll go through each of the menu options assert the form has the expected text as well as the correct URL
+
+## Create first test
