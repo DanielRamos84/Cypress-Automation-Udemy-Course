@@ -53,7 +53,7 @@ This creates the Cypress Folder Structure containing the following:
 
 ## For my own personal tests I will create a new folder named automationTests under cypress/integration folder :heavy_check_mark:
 
-## Click to view my automationTest001.specjs :point_right:[https://github.com/DanielRamos84/Cypress-Automation-Udemy-Course/tree/master/cypress/integration/examples/automationTests):point_left:
+## Click to view my :point_right:[automationTest001.specjs](https://github.com/DanielRamos84/Cypress-Automation-Udemy-Course/tree/master/cypress/integration/examples/automationTests):point_left:
 
 Topics covered: Basic web element interaction.
 - Completing and submitting forms
