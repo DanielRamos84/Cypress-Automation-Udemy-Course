@@ -28,7 +28,5 @@
   `cy.wrap($option).find('[data-name="checkmark"]').eq(0).should('be.visible') cy.wrap($option).find('[data-name="checkmark"]').eq(1).should('be.visible') cy.wrap($option).find('[data-name="checkmark"]').eq(2).should('be.visible')`
 - Instead a better approach is to check the length of the array and make an assertion on that
   `cy.wrap($option).find('[data-name="checkmark"]').should('have.length', '3')`
-
-<img src= "..\..\..\images\Snip - ngx-cypress-test - Google Chrome.png">
-
+<img src= "..\..\..\..\images\Snip - ngx-cypress-test - Google Chrome.png">
 - What would be best testing approach to account for user interacting with stepper buttons as well as using prev and next buttons?  At this point I can only think of testing the application using stepper buttons first, then reload the application and test only using the prev / next buttons but in real life a user wouldn't be using the application that way.
