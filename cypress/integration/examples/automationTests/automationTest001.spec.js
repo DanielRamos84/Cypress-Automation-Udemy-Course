@@ -133,8 +133,77 @@ describe('Suite of tests for nxg demo site',()=>{
             .url().should('include', '/auth/reset-password')
             cy.go('back')
         /*Forms Auth assertion end*/
-    
-        cy.reload();
     });
 
+    it.only('Layout section tests',()=>{
+        cy.visit('/')
+        cy.get('span.menu-title').contains('Layout').click();
+        cy.get('span.menu-title').contains('Stepper').click();
+        //Horizontal stepper test begin
+        cy.get('nb-card-body').eq(0).then($option=>{
+            /*First step attempt to click stepper options First, Third and Fourth interface shouldn't allow
+            you click either buttons PREV or NEXT*/
+            cy.wrap($option).find('.label-index').eq(0).click();
+            cy.wrap($option).find('.label-index').eq(2).click();
+            cy.wrap($option).find('.label-index').eq(3).click();
+                  
+            cy.get('button').contains('prev').should('have.class', 'btn-disabled')
+            cy.get('button').contains('next').should('not.have.class', 'btn-disabled')
+
+            const log= Cypress.log({
+                name: "PREV button state",
+                displayName: "Check that PREV button remains disabled unless you move to second step"
+            });
+            
+            //Second step
+            cy.wrap($option).find('.label-index').eq(1).click();    
+            cy.wrap($option).find('h3').should('have.text', 'Step content #2')
+            cy.wrap($option).find('[data-name="checkmark"]').should('have.length', '1')          
+            cy.get('button').contains('prev').should('not.have.class', 'btn-disabled')
+            cy.get('button').contains('next').should('not.have.class', 'btn-disabled')
+
+            //Third step
+            cy.wrap($option).find('.label-index').eq(2).click();
+            cy.wrap($option).find('h3').should('have.text', 'Step content #3')
+            cy.wrap($option).find('[data-name="checkmark"]').should('have.length', '2')
+            cy.get('button').contains('prev').should('not.have.class', 'btn-disabled')
+            cy.get('button').contains('next').should('not.have.class', 'btn-disabled')
+
+            //Fourth step
+            cy.wrap($option).find('.label-index').eq(3).click();
+            cy.wrap($option).find('h3').should('have.text', 'Step content #4')
+            cy.wrap($option).find('[data-name="checkmark"]').should('have.length', '3')
+            cy.get('button').contains('prev').should('not.have.class', 'btn-disabled')
+            cy.get('button').contains('next').should('have.class', 'btn-disabled')
+        });
+        //Horizontal stepper test ends
+        //Left side vertical stepper starts
+        cy.get('nb-card-body').eq(1).then($option=>{
+            cy.wrap($option).find('.label-index').eq(0).as('firstStep')
+            cy.wrap($option).find('.label-index').eq(1).as('secondStep')
+            cy.wrap($option).find('.label-index').eq(2).as('thirdStep')
+
+            cy.get('@firstStep').parent().should('have.class', 'ng-star-inserted')
+            cy.get('@secondStep').parent().should('have.class', 'ng-star-inserted')
+            cy.get('@thirdStep').parent().should('have.class', 'ng-star-inserted')
+
+            cy.get('[formcontrolname="firstCtrl"]').type('random text')
+            cy.get('@secondStep').click()
+            cy.get('@firstStep').parent().should('have.class', 'completed')
+            cy.get('@secondStep').parent().should('have.class', 'selected')
+
+            cy.get('[formcontrolname="secondCtrl"]').type('random text')
+            cy.get('@thirdStep').click()
+            cy.get('@secondStep').parent().should('have.class', 'completed')
+            cy.get('@thirdStep').parent().should('have.class', 'selected')
+
+            cy.wrap($option).find('[type="submit"]').contains('Confirm').as('confBtn')
+            cy.get('[formcontrolname="thirdCtrl"]').type('random text')
+            cy.get('@confBtn').click()
+            cy.get('@thirdStep').parent().should('have.class', 'completed')
+
+            cy.wrap($option).find('h3').should('have.text', 'Wizard completed!')
+        });
+        //Left side vertical stepper ends
+    });
 });
